@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TMDB Registeration Form</title>
+
+    <link rel="stylesheet" type="text/css" href="style.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<body>
+    <div class="mainReg">
+        <div class="container">
+            <h2>Registration Form</h2>
+        
+            <div class="form-container">
+
+                <form id="myForm" onsubmit="return false">
+                    <div class="input-name">
+                        <i class="fa fa-user lock"></i>
+                        <input type="text" id="name" name="name" placeholder="Enter your full name" class="form-reg">
+                    </div>
+                    <span id="name-error" style="color: red;display:none;">
+                        invalid name
+                    </span>
+
+                    <div class="input-name">
+                        <i class="fa fa-envelope lock"></i>
+                        <input type="text" id="email" name="email" placeholder="Email" class="form-reg">
+                    </div>
+                    <span id="email-error" style="color: red;display:none;">
+                        invalid email
+                    </span>
+
+                    <div class="input-name">
+                        <i class="fa fa-lock lock"></i>
+                        <input type="Password" id="pass" name="password" placeholder="Enter your Password"  class="form-reg">  
+                        <i class="fa fa-eye-slash" id = "eye" aria-hidden="true"></i>
+                    </div>
+                    <spam id="pass-error" style="color: red;display:none;">
+                        invalid password
+                    </spam>
+
+                    <div class="input-name">
+                        <i class="fa fa-lock lock"></i>
+                        <input type="Password" id="confirm-password" name="password" placeholder="Enter your Confirm password"
+                            class="form-reg">
+                        <i class="fa fa-eye-slash" id = "eyeconfirm" aria-hidden="true"></i>
+                    </div>
+                    <spam id="confirm_pass-error" style="color: red;display:none; ">
+                        Password does not match
+                    </spam>
+
+                    <div class="check">
+                        <input type="checkbox" id = check_box class="check_button">
+                        <labal>I acceept my terms and conditions</labal>
+                    </div>
+                    <spam id="checkbox-error" style="color: red;display:none;">
+                        Please accept the terms and conditions
+
+                    </spam>
+
+                    <div class="button">
+                        <input type="submit" class="button" value="Register" onclick="fun()">
+                    </div>
+                    
+                </form>
+            </div>
+        
+        </div>
+
+        <div class="cover">
+            <a href="./login.html" class="linkBlack">
+                Login
+            </a>
+        </div>
+    </div>
+          
+
+
+    
+    <script>
+
+
+       document.getElementById("eye").addEventListener("click",function(){
+            if(document.getElementById('pass').type=="password"){
+               document.getElementById('pass').type="text";   
+           }
+           else{
+               document.getElementById('pass').type="password";
+            }
+            
+        });
+        document.getElementById("eyeconfirm").addEventListener("click",function(){
+            if(document.getElementById('confirm-password').type=="password"){
+               document.getElementById('confirm-password').type="text";   
+           }
+           else{
+               document.getElementById('confirm-password').type="password";
+            }
+            
+        });
+
+
+        function validation() {
+            let name = document.getElementById("name").value;
+            let email = document.getElementById("email").value;
+            let password = document.getElementById("pass").value;
+            let confirmpassword = document.getElementById("confirm-password").value;
+            let termscheckbox = document.getElementById("check_box");
+            
+
+            if (name == "") {
+                document.getElementById("name-error").innerHTML = "please enter your valid name";
+                document.getElementById("name-error").style.display = 'block';
+                return false;
+            }
+            if ((name.length < 4) && (name.length < 20)) {
+                document.getElementById("name-error").innerHTML = "name character should be between 4 and 20";
+                document.getElementById("name-error").style.display = 'block';
+                return false;
+            }
+            if ((!isNaN(name))) {
+                document.getElementById("name-error").innerHTML = "name should be in characters";
+                document.getElementById("name-error").style.display = 'block';
+                return false;
+            }
+            document.getElementById("name-error").style.display = 'none';
+
+            if (email == "") {
+                document.getElementById("email-error").innerHTML = "please enter your valid email";
+                document.getElementById("email-error").style.display = 'block';
+                return false;
+            }
+
+            if (email.indexOf("@") <= 0) {
+                document.getElementById("email-error").innerHTML = "please enter valid email";
+                document.getElementById("email-error").style.display = 'block';
+                return false;
+            }
+            if ((email.charAt(email.length - 4) != '.') && (email.charAt(email.length - 3) != '.')) {
+                document.getElementById("email-error").innerHTML = "Please enter valid email";
+                document.getElementById("email-error").style.display = 'block';
+                return false;
+            }
+            document.getElementById("email-error").style.display = 'none';
+
+            if (password == "") {
+               // passwordError.innerHTML = "Please enter a password";
+                document.getElementById("pass-error").innerHTML = "invalid password";
+                document.getElementById("pass-error").style.display = 'block';
+                return false;
+            }
+
+            if (password.length < 8) {
+                document.getElementById("pass-error").innerHTML = "password should be atleast 8 long";
+                document.getElementById("pass-error").style.display = 'block'
+                return false;
+            }
+            document.getElementById("pass-error").style.display = 'none';
+
+            if (confirmpassword === '') {
+                 document.getElementById("pass-error").innerHTML = "Please confirm your password ";
+                 document.getElementById("pass-error").style.display = 'block'
+                 return false;
+             }
+
+            if (password !== confirmpassword) {
+                document.getElementById("confirm_pass-error").innerHTML = "Password do not match";
+                document.getElementById("confirm_pass-error").style.display = 'block'
+                return false;
+            }
+            document.getElementById("confirm_pass-error").style.display = 'none';
+
+            if (!termscheckbox.checked) {
+                document.getElementById("checkbox-error").innerHTML = "Please accept the terms and conditions";
+                document.getElementById("checkbox-error").style.display = 'block';
+                return false;
+            }
+            document.getElementById("checkbox-error").style.display = 'none';
+            return true;
+
+        }
+
+
+        function fun(e) {
+            const form = validation();
+            if (form === false) {
+                return;
+            }
+            let a = document.querySelectorAll('.input-name input')
+            const arr = Array.from(a).map(e => e.value);
+            const data = { name: arr[0], email: arr[1], password: arr[2]}
+            console.log(data)
+            postData(data);
+        }
+
+        async function postData(data) {
+            await fetch('http://127.0.0.1:8000/register1',
+                {
+                    method: "POST",
+                    mode: "cors",
+                    cache: "no-cache",
+                    credentials: "same-origin",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    redirect: "follow",
+                    referrerPolicy: "no-referrer",
+                    body: JSON.stringify(data),
+                }).then(response => response.json())
+                .then(e => {
+                    console.log(e)
+                    if (e.message === "Registration successful") {
+                        location.href = "http://127.0.0.1:5500/Frontend/login.html"
+                    }
+
+                })
+        }  
+
+
+
+
+    </script>
+
+
+
+
+</body>
+
+</html>

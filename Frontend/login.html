@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TMDB Login Form</title>
+
+    <link rel="stylesheet" type= "text/css" href="style.css"/>
+    <!-- Add icon library -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<body>
+    <div class="wrapper">
+        <h1>Login</h1>
+        <div class="wrapper-form"> 
+            <form onsubmit="return false">
+                <div class="box">
+                <input type="text" name="email" placeholder="Email" required class="log">
+                <i class="fa fa-user lock"></i>
+                </div>
+                <div class="box"> 
+                    <input type="text" name="password" placeholder="Password" required class="log">
+                    <i class="fa fa-lock lock"></i>
+                </div>
+
+                <div class="button">
+                <button type="submit" class="btn" onclick="fun()" >Login</button>
+                </div>
+
+                
+        
+            </form >
+        </div>
+
+        <script>
+
+            function fun(e) {
+                let a = document.querySelectorAll('.box input')
+                const arr = Array.from(a).map(e => e.value);
+                const data = { email: arr[0], password: arr[1] }
+                postData(data);
+            }
+
+            async function postData(data) {
+                await fetch('http://127.0.0.1:8000/login1',
+                    {
+                        method: "POST",
+                        mode: "cors",
+                        cache: "no-cache",
+                        credentials: "same-origin",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        redirect: "follow",
+                        referrerPolicy: "no-referrer",
+                        body: JSON.stringify(data),
+                    }).then(response => response.json())
+                    .then(e => {
+                        console.log(e)
+                        if(e.message=='User Login successfull '){
+                            localStorage.setItem('uid',e.data.user_id);
+                            localStorage.setItem('uname', e.data.name);
+
+
+                            location.href="http://127.0.0.1:5500/Frontend/home.html"
+                        }
+                    })
+            }
+
+
+        </script>
+</body> 
+</html>
